@@ -22,10 +22,10 @@ export default function Home() {
           >
             <h1 className="text-5xl md:text-7xl font-bold mb-6">
               <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                Computer Engineering
+                Leticia Diniz
               </span>
               <br />
-              <span className="text-gray-900 dark:text-white">& Robotics</span>
+              <span className="text-gray-900 md:text-5xl dark:text-white">Computer Engineering & Robotics</span>
             </h1>
           </motion.div>
 
@@ -60,6 +60,12 @@ export default function Home() {
             >
               Get In Touch
             </a>
+            <a
+              href="https://drive.google.com/file/d/19KtfoDyftE7EgXyyAYhELZOH2tn_7MJ3/view?usp=sharing"
+              className="px-8 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-full font-medium hover:shadow-lg hover:scale-105 transition-all duration-300"
+            >
+              Resume
+            </a>
           </motion.div>
 
           <motion.div
@@ -69,7 +75,7 @@ export default function Home() {
             className="flex justify-center gap-6"
           >
             <a
-              href="https://github.com"
+              href="https://github.com/Letiiciadiniz"
               target="_blank"
               rel="noopener noreferrer"
               className="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
@@ -77,7 +83,7 @@ export default function Home() {
               <Github size={28} />
             </a>
             <a
-              href="https://linkedin.com"
+              href="https://www.linkedin.com/in/letiicia-dnz/"
               target="_blank"
               rel="noopener noreferrer"
               className="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
@@ -85,7 +91,7 @@ export default function Home() {
               <Linkedin size={28} />
             </a>
             <a
-              href="mailto:your.email@example.com"
+              href="mailto:leticiadiniz2028@u.northwestern.edu"
               className="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
             >
               <Mail size={28} />
