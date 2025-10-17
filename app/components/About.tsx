@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { Code2, Cpu, Wrench, Rocket, Brain, Zap } from 'lucide-react';
+import Image from 'next/image'
 
 const skills = [
   {
@@ -72,17 +73,30 @@ export default function About() {
           transition={{ duration: 0.5, delay: 0.2 }}
           className="bg-white dark:bg-gray-800 rounded-2xl p-8 md:p-12 shadow-xl mb-16"
         >
-          <div className="prose prose-lg dark:prose-invert max-w-none">
-            <p className="text-gray-700 dark:text-gray-300 text-lg leading-relaxed mb-6">
-              As a Computer Engineering student, I combine my knowledge of hardware and software to create
-              innovative robotics solutions. My experience spans from low-level embedded programming to
-              high-level AI algorithms, enabling me to tackle complex engineering challenges from multiple angles.
-            </p>
-            <p className="text-gray-700 dark:text-gray-300 text-lg leading-relaxed">
-              I&apos;m particularly interested in autonomous systems, computer vision, and the intersection of
-              robotics with artificial intelligence. I&apos;m eager to contribute to cutting-edge projects and
-              learn from experienced professionals in the field.
-            </p>
+          <div className="grid md:grid-cols-2 gap-10 items-center">
+            {/* Left Column — Text */}
+            <div className="prose prose-lg dark:prose-invert max-w-none">
+              <p className="text-gray-700 dark:text-gray-300 text-lg leading-relaxed mb-6">
+                As a Computer Engineering student, I combine my knowledge of hardware and software to create
+                innovative robotics solutions. My experience spans from low-level embedded programming to
+                high-level AI algorithms, enabling me to tackle complex engineering challenges from multiple angles.
+              </p>
+              <p className="text-gray-700 dark:text-gray-300 text-lg leading-relaxed">
+                I&apos;m particularly interested in autonomous systems, computer vision, and the intersection of
+                robotics with artificial intelligence. I&apos;m eager to contribute to cutting-edge projects and
+                learn from experienced professionals in the field.
+              </p>
+            </div>
+
+            {/* Right Column — Photo */}
+            <div className="flex justify-center md:justify-end">
+            <Image
+              src="/profile.jpeg"
+              width={600}
+              height={500}
+              alt="Leticia Diniz"
+            />
+            </div>
           </div>
         </motion.div>
 
