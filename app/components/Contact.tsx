@@ -80,7 +80,7 @@ export default function Contact() {
                     href="mailto:your.email@example.com"
                     className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
                   >
-                    your.email@example.com
+                    leticiadiniz2028@u.northwestern.edu
                   </a>
                 </div>
               </div>
@@ -95,7 +95,7 @@ export default function Contact() {
                     href="tel:+1234567890"
                     className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
                   >
-                    +1 (234) 567-890
+                    +1 (773) 858-2243
                   </a>
                 </div>
               </div>
@@ -107,7 +107,7 @@ export default function Contact() {
                 <div>
                   <h4 className="font-semibold text-gray-900 dark:text-white mb-1">Location</h4>
                   <p className="text-gray-600 dark:text-gray-300">
-                    Your City, State
+                    Evanston, IL
                   </p>
                 </div>
               </div>
@@ -117,7 +117,7 @@ export default function Contact() {
               <h4 className="font-semibold text-gray-900 dark:text-white mb-4">Connect With Me</h4>
               <div className="flex gap-4">
                 <a
-                  href="https://github.com"
+                  href="https://github.com/Letiiciadiniz"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="p-3 bg-gray-100 dark:bg-gray-800 rounded-lg hover:bg-gradient-to-br hover:from-blue-500 hover:to-purple-600 hover:text-white transition-all duration-300 group"
@@ -125,7 +125,7 @@ export default function Contact() {
                   <Github size={24} className="text-gray-700 dark:text-gray-300 group-hover:text-white" />
                 </a>
                 <a
-                  href="https://linkedin.com"
+                  href="https://www.linkedin.com/in/letiicia-dnz/"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="p-3 bg-gray-100 dark:bg-gray-800 rounded-lg hover:bg-gradient-to-br hover:from-blue-500 hover:to-purple-600 hover:text-white transition-all duration-300 group"

@@ -63,6 +63,8 @@ export default function Home() {
             <a
               href="https://drive.google.com/file/d/19KtfoDyftE7EgXyyAYhELZOH2tn_7MJ3/view?usp=sharing"
               className="px-8 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-full font-medium hover:shadow-lg hover:scale-105 transition-all duration-300"
+              target="_blank"
+              rel="noopener noreferrer"
             >
               Resume
             </a>
