@@ -93,7 +93,7 @@ export default function About() {
             <Image
               src="/profile.jpeg"
               width={600}
-              height={500}
+              height={200}
               alt="Leticia Diniz"
             />
             </div>

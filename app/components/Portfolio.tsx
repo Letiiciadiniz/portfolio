@@ -2,7 +2,8 @@
 
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Github, ExternalLink, Code2, Cpu, Zap, LucideIcon } from 'lucide-react';
+import { Github, ExternalLink, Code2, Cpu, Zap, LucideIcon, Volume2 } from 'lucide-react';
+import Image from 'next/image'
 
 interface Project {
   id: string;
@@ -13,6 +14,7 @@ interface Project {
   demo?: string;
   category: string;
   icon: LucideIcon;
+  image: string;
   details: string[];
 }
 
@@ -25,6 +27,7 @@ const projects: Project[] = [
     github: 'https://github.com',
     category: 'Robotics',
     icon: Cpu,
+    image: '/images/autonomous-robot.jpg',
     details: [
       'Implemented SLAM algorithm for real-time mapping',
       'Integrated LiDAR and camera sensors for obstacle detection',
@@ -41,6 +44,7 @@ const projects: Project[] = [
     demo: 'https://example.com',
     category: 'Robotics',
     icon: Zap,
+    image: '/images/autonomous-robot.jpg',
     details: [
       'Designed custom inverse kinematics solver',
       'Built web interface for remote control',
@@ -56,6 +60,7 @@ const projects: Project[] = [
     github: 'https://github.com',
     category: 'AI/ML',
     icon: Code2,
+    image: '/images/autonomous-robot.jpg',
     details: [
       'Trained custom YOLO model on 10,000+ images',
       'Real-time processing at 30 FPS',
@@ -65,18 +70,31 @@ const projects: Project[] = [
   },
   {
     id: 'project-4',
-    title: 'IoT Smart Sensor Network',
-    description: 'Wireless sensor network for environmental monitoring with cloud integration and real-time analytics.',
-    technologies: ['ESP32', 'MQTT', 'Node.js', 'MongoDB', 'React'],
-    github: 'https://github.com',
-    demo: 'https://example.com',
+    title: 'Arduino-Based Accessible pH Meter',
+    description: 'Low-cost pH meter with LCD and spoken readouts, designed for inclusive use by visually impaired learners and lab users.',
+    technologies: [
+          'Arduino C/C++',
+          '3D-Printed Enclosure',
+          'pH Electrode Sensor',
+          'BNC -vInterface Module',
+          'DFPlayer Mini',
+          'Speaker',
+          'LCD 16x2',
+          'LiPo Batteries',
+      ],
+    github: 'https://github.com/Letiiciadiniz/pHmeter.git',
+    demo: 'https://youtu.be/KwcFQ8zasOc?si=c8AuHtFSur_hcx5d&t=355',
     category: 'IoT',
-    icon: Cpu,
-    details: [
-      'Deployed 20+ sensors across test area',
-      'Built real-time dashboard for data visualization',
-      'Implemented low-power protocols for battery efficiency',
-      'Cloud storage with historical data analysis',
+    icon: Volume2,
+    image: '/phmeter.jpg',
+    details: [ 
+    'Utility model focused on accessibility: LCD display plus voice feedback of pH values',
+    'pH sensing via electrode → BNC module → Arduino Uno; audio via DFPlayer Mini and speaker',
+    'Guided startup and calibration prompts; simple buttons for calibration at pH 4 and pH 7',
+    'Portable, low-cost build powered by LiPo batteries; enclosure designed and printed in 3D',
+    'Displays pH on-screen and announces it by voice for inclusive lab use',
+    'Validated against a commercial bench pH meter using buffer solutions (pH 4, 7, 10) and real samples (bicarbonate solution, bleach, vinegar, wine)',
+    'Intended for teaching and analytical labs, enabling independent operation by users with low or no vision'
     ],
   },
 ];
@@ -146,10 +164,19 @@ export default function Portfolio() {
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: 20 }}
                   transition={{ duration: 0.3, delay: index * 0.1 }}
-                  className="bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-800 dark:to-gray-850 rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 cursor-pointer border border-gray-200 dark:border-gray-700"
+                  className="relative bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-800 dark:to-gray-850 rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 cursor-pointer border border-gray-200 dark:border-gray-700"
                   onClick={() => setSelectedProject(project.id)}
                 >
                   <div className="flex items-start justify-between mb-4">
+                  {project.image && (
+                    <div className="mb-4 overflow-hidden rounded-xl">
+                      <img
+                        src={project.image}
+                        alt={project.title}
+                        className="relative bottom-0 left-0 w-24 h-24 object-cover rounded-lg border border-gray-300 dark:border-gray-600 shadow-md"
+                      />
+                    </div>
+                  )}
                     <div className="p-3 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl">
                       <Icon size={28} className="text-white" />
                     </div>
@@ -230,7 +257,6 @@ export default function Portfolio() {
                     ×
                   </button>
                 </div>
-
                 <p className="text-gray-600 dark:text-gray-300 mb-6">
                   {selectedProjectData.description}
                 </p>
