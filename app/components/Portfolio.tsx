@@ -74,7 +74,7 @@ const projects: Project[] = [
   },
   {
     id: 'project-3',
-    title: 'Scary Bat',
+    title: 'Another project',
     description: 'Real-time object detection and tracking system using deep learning for robotics applications.',
     technologies: ['Python', 'TensorFlow', 'YOLO', 'OpenCV'],
     github: 'https://github.com',
