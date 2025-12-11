@@ -41,7 +41,7 @@ const projects: Project[] = [
     diagram: 'https://drive.google.com/file/d/1iKPkKLcLsjNN3bOZ3-1tRqdlNg4hbl9F/view?usp=sharing',
     category: 'IoT',
     icon: Cpu,
-    image: '/phmeter.jpg',
+    image: '/bat.jpg',
     details: [
       'Designed a responsive “bat creature” that wakes up when someone approaches using an ultrasonic distance sensor.',
       'Eyes turn on as the first feedback cue; if the user walks away, the bat turns off automatically.',
