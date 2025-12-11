@@ -12,6 +12,8 @@ interface Project {
   technologies: string[];
   github?: string;
   demo?: string;
+  sketch: string;
+  diagram: string;
   category: string;
   icon: LucideIcon;
   image: string;
@@ -20,19 +22,35 @@ interface Project {
 
 const projects: Project[] = [
   {
-    id: 'project-1',
-    title: 'Autonomous Navigation Robot',
-    description: 'Mobile robot with computer vision and path planning capabilities for autonomous indoor navigation.',
-    technologies: ['ROS2', 'Python', 'OpenCV', 'SLAM', 'Raspberry Pi'],
-    github: 'https://github.com',
-    category: 'Robotics',
+    id: 'project-bat',
+    title: 'Interactive Bat Companion – Pico-Based Reactive Creature',
+    description: 'A cute-but-spooky interactive bat that reacts to proximity, lights up, opens its wings, and plays sounds when petted. Built with ultrasonic sensing, capacitive touch, wing servos, and audio playback.',
+    technologies: [
+        'Raspberry Pi Pico (CircuitPython)',
+        'HC-SR04 Ultrasonic Sensor',
+        'MPR121 Capacitive Touch Sensor',
+        'Micro Servos (x2)',
+        'DFPlayer Mini',
+        '3W Mini Speaker',
+        'LED Eyes',
+        'Custom 3D-Printed Enclosure'
+    ],
+    github: 'https://github.com/Letiiciadiniz/DSGN_297.git',  // ← put your repo link here
+    demo: 'https://drive.google.com/file/d/18OJK1dtEcGp1-RSvWvYhDaTWRRTL0pOc/view?usp=sharing', 
+    sketch: 'https://drive.google.com/file/d/120EglYuwNbtym248d0ovIh6n2iNVg8NM/view?usp=sharing',
+    diagram: 'https://drive.google.com/file/d/1iKPkKLcLsjNN3bOZ3-1tRqdlNg4hbl9F/view?usp=sharing',
+    category: 'IoT',
     icon: Cpu,
-    image: '/images/autonomous-robot.jpg',
+    image: '/bat.jpg',
     details: [
-      'Implemented SLAM algorithm for real-time mapping',
-      'Integrated LiDAR and camera sensors for obstacle detection',
-      'Developed path planning using A* algorithm',
-      'Achieved 95% navigation accuracy in test environments',
+      'Designed a responsive “bat creature” that wakes up when someone approaches using an ultrasonic distance sensor.',
+      'Eyes turn on as the first feedback cue; if the user walks away, the bat turns off automatically.',
+      'Capacitive touch on the head detects when the bat is being petted using the MPR121 controller.',
+      'When petted, the bat opens its wings via two synchronized servo motors and plays a loud “bat screech” through a DFPlayer Mini + speaker.',
+      'Behavior loop continues as long as the user keeps petting the bat (“pet → flap wings + sound → rest → repeat”).',
+      'Includes custom interaction states: idle → alert → pet-response → reset, implemented in CircuitPython.',
+      'LED eyes, 3D-printed enclosure, and the internal layout were designed based on physical sketches and iterative measurements.',
+      'Built as a playful robotics + HCI project exploring feedback, interactivity, and sensory triggers.'
     ],
   },
   {
@@ -42,6 +60,8 @@ const projects: Project[] = [
     technologies: ['Arduino', 'C++', 'MATLAB', 'Servo Control'],
     github: 'https://github.com',
     demo: 'https://example.com',
+    sketch: '',
+    diagram: '',
     category: 'Robotics',
     icon: Zap,
     image: '/images/autonomous-robot.jpg',
@@ -54,10 +74,12 @@ const projects: Project[] = [
   },
   {
     id: 'project-3',
-    title: 'Computer Vision Object Tracker',
+    title: 'Scary Bat',
     description: 'Real-time object detection and tracking system using deep learning for robotics applications.',
     technologies: ['Python', 'TensorFlow', 'YOLO', 'OpenCV'],
     github: 'https://github.com',
+    sketch: '',
+    diagram: '',
     category: 'AI/ML',
     icon: Code2,
     image: '/images/autonomous-robot.jpg',
@@ -84,6 +106,8 @@ const projects: Project[] = [
       ],
     github: 'https://github.com/Letiiciadiniz/pHmeter.git',
     demo: 'https://youtu.be/KwcFQ8zasOc?si=c8AuHtFSur_hcx5d&t=355',
+    sketch: '',
+    diagram: '',
     category: 'IoT',
     icon: Volume2,
     image: '/phmeter.jpg',
@@ -243,7 +267,7 @@ export default function Portfolio() {
                 initial={{ scale: 0.9, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
                 exit={{ scale: 0.9, opacity: 0 }}
-                className="bg-white dark:bg-gray-800 rounded-2xl p-8 max-w-2xl w-full max-h-[90vh] overflow-y-auto"
+                className="bg-white dark:bg-gray-800 rounded-2xl p-8 max-w-3xl w-full max-h-[90vh] overflow-y-auto"
                 onClick={(e) => e.stopPropagation()}
               >
                 <div className="flex items-start justify-between mb-6">
@@ -287,7 +311,8 @@ export default function Portfolio() {
                   ))}
                 </div>
 
-                <div className="flex gap-4">
+                <div className="flex flex-wrap gap-4 mt-4">
+
                   {selectedProjectData.github && (
                     <a
                       href={selectedProjectData.github}
@@ -299,6 +324,7 @@ export default function Portfolio() {
                       View Code
                     </a>
                   )}
+
                   {selectedProjectData.demo && (
                     <a
                       href={selectedProjectData.demo}
@@ -310,7 +336,35 @@ export default function Portfolio() {
                       Live Demo
                     </a>
                   )}
+
+                  {/* --- NEW SKETCH BUTTON --- */}
+                  {selectedProjectData.sketch && (
+                    <a
+                      href={selectedProjectData.sketch}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-2 px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors"
+                    >
+                      <Code2 size={20} />
+                      Sketch
+                    </a>
+                  )}
+
+                  {/* --- NEW DIAGRAM BUTTON --- */}
+                  {selectedProjectData.diagram && (
+                    <a
+                      href={selectedProjectData.diagram}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-2 px-6 py-3 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors"
+                    >
+                      <Cpu size={20} />
+                      Diagram
+                    </a>
+                  )}
+
                 </div>
+
               </motion.div>
             </motion.div>
           )}
