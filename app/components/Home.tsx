@@ -7,9 +7,9 @@ export default function Home() {
     <section id="home" className="hero-light relative overflow-hidden border-b border-line">
       <BrailleBackdrop lines={['Leticia', 'Diniz']} />
 
-      <div className="relative mx-auto grid max-w-6xl items-center gap-12 px-5 pb-16 pt-28 sm:px-8 md:grid-cols-[1.1fr_0.9fr] md:gap-16 md:pb-24 md:pt-36">
+      <div className="wrap relative grid items-center gap-12 pb-16 pt-28 md:grid-cols-[1.15fr_0.85fr] md:gap-16 md:pb-24 md:pt-36">
         <div>
-          <h1 className="text-[clamp(3.25rem,10vw,7rem)] font-extrabold leading-[0.92] tracking-[-0.035em]">
+          <h1 className="text-[clamp(3.25rem,9vw,9rem)] font-extrabold leading-[0.92] tracking-[-0.035em]">
             Leticia
             <br />
             Diniz
@@ -42,11 +42,9 @@ export default function Home() {
               Email me
             </a>
           </div>
-
-          <p className="mt-12 text-sm text-muted">The dots behind this page spell my name in braille.</p>
         </div>
 
-        <figure className="mx-auto w-full max-w-sm md:max-w-none">
+        <figure className="mx-auto w-full max-w-sm md:ml-auto md:mr-0 md:max-w-[34rem]">
           <Image
             src="/profile.jpeg"
             alt="Leticia Diniz"
@@ -57,14 +55,6 @@ export default function Home() {
             className="aspect-[4/5] w-full rounded-2xl object-cover object-top"
           />
         </figure>
-      </div>
-
-      <div className="relative border-t border-line bg-paper/60 backdrop-blur-sm">
-        <p className="mx-auto max-w-6xl px-5 py-5 text-[0.95rem] sm:px-8">
-          <span className="mr-2 inline-block size-2 rounded-full bg-violet align-middle" aria-hidden="true" />
-          Now: building a blade-coating platform for artificial muscles at the Robotic Matter Lab, and leading the
-          electronics team for a 30 lb combat robot.
-        </p>
       </div>
     </section>
   );

@@ -104,7 +104,7 @@ export default function Portfolio() {
 
   return (
     <section id="portfolio" className="py-20 md:py-28">
-      <div className="mx-auto max-w-6xl px-5 sm:px-8">
+      <div className="wrap">
         <div className="mb-10 flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
           <div className="max-w-xl">
             <h2 className="text-4xl font-extrabold tracking-tight md:text-5xl">Selected work</h2>
@@ -133,13 +133,13 @@ export default function Portfolio() {
           </div>
         </div>
 
-        <motion.div layout className="grid gap-x-8 gap-y-14 sm:grid-cols-2">
+        <motion.div layout className="grid gap-x-8 gap-y-14 sm:grid-cols-2 2xl:grid-cols-3">
           <AnimatePresence mode="popLayout">
             {filtered.map((project, i) => (
               <motion.div
                 key={project.slug}
                 layout
-                className={i === 0 ? 'sm:col-span-2' : ''}
+                className={i === 0 ? 'col-span-full' : ''}
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}

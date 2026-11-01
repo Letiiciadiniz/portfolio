@@ -53,7 +53,7 @@ export default function Navigation() {
 
   return (
     <nav className="fixed inset-x-0 top-0 z-50 border-b border-line bg-paper">
-      <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-5 sm:px-8">
+      <div className="wrap flex h-16 items-center justify-between">
         <Link
           href="/"
           onClick={(e) => {
@@ -104,7 +104,7 @@ export default function Navigation() {
       </div>
 
       {isOpen && (
-        <div className="border-t border-line bg-paper px-5 py-3 md:hidden">
+        <div className="wrap border-t border-line bg-paper py-3 md:hidden">
           {navItems.map((item) => (
             <button
               key={item.id}

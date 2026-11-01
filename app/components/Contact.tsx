@@ -9,7 +9,7 @@ const links = [
 export default function Contact() {
   return (
     <section id="contact" className="border-t border-line py-20 md:py-28">
-      <div className="mx-auto max-w-6xl px-5 sm:px-8">
+      <div className="wrap">
         <h2 className="max-w-3xl text-4xl font-extrabold tracking-tight md:text-6xl">
           Building something that helps people? I&apos;d love to hear about it.
         </h2>

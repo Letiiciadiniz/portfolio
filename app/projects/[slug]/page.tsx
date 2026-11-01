@@ -41,7 +41,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
 
   return (
     <main className="min-h-screen">
-      <article className="mx-auto max-w-4xl px-4 pb-24 pt-28 sm:px-6 lg:px-8">
+      <article className="mx-auto w-full max-w-[1200px] px-[clamp(1.25rem,5vw,5rem)] pb-24 pt-28 [&_li]:max-w-[70ch] [&_p]:max-w-[70ch]">
         <Link
           href="/#portfolio"
           className="mb-10 inline-flex items-center gap-2 text-[0.95rem] font-bold text-ink underline decoration-violet decoration-[3px] underline-offset-[6px] hover:decoration-ink"
@@ -53,7 +53,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
         <p className="mb-3 font-bold text-lilac">
           {project.category}
         </p>
-        <h1 className="mb-5 text-4xl font-extrabold leading-[1.05] tracking-tight md:text-6xl">
+        <h1 className="mb-5 max-w-5xl text-4xl font-extrabold leading-[1.05] tracking-tight md:text-6xl">
           {project.title}
         </h1>
         <p className="mb-10 text-xl leading-relaxed">{project.summary}</p>

@@ -1,6 +1,6 @@
 @import "tailwindcss";
 
-/* The site uses one light theme everywhere, so `dark:` classes only apply
+/* The site always uses its own dark theme, so `dark:` classes only apply
    if a parent has class="dark" (which nothing does). */
 @custom-variant dark (&:where(.dark, .dark *));
 
@@ -60,6 +60,14 @@
     outline-offset: 3px;
     border-radius: 4px;
   }
+}
+
+/* Page width: grows with the screen (side margins scale too), up to 1600px */
+.wrap {
+  width: 100%;
+  max-width: 1600px;
+  margin-inline: auto;
+  padding-inline: clamp(1.25rem, 5vw, 5rem);
 }
 
 /* ---------------------------------------------------------------------------

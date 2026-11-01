@@ -62,7 +62,7 @@ const recognition = [
 export default function About() {
   return (
     <section id="about" className="border-t border-line bg-card py-20 md:py-28">
-      <div className="mx-auto max-w-6xl px-5 sm:px-8">
+      <div className="wrap">
         <div className="grid gap-12 md:grid-cols-[1fr_1.25fr]">
           <h2 className="text-4xl font-extrabold tracking-tight md:text-5xl">About me</h2>
           <div className="max-w-2xl space-y-5 text-lg leading-relaxed">
