@@ -1,35 +1,37 @@
-import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
-import "./globals.css";
-import Navigation from "./components/Navigation";
+import type { Metadata } from 'next';
+import localFont from 'next/font/local';
+import './globals.css';
+import Navigation from './components/Navigation';
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+// Atkinson Hyperlegible Next: a typeface the Braille Institute designed for
+// readers with low vision. Hosted with the site (no Google Fonts request).
+const atkinson = localFont({
+  src: [
+    { path: './fonts/AtkinsonHyperlegibleNext.woff2', style: 'normal', weight: '200 800' },
+    { path: './fonts/AtkinsonHyperlegibleNext-Italic.woff2', style: 'italic', weight: '200 800' },
+  ],
+  variable: '--font-atkinson',
+  display: 'swap',
 });
 
 export const metadata: Metadata = {
-  title: "Leticia Diniz",
-  description: "Portfolio of Leticia Diniz",
+  title: 'Leticia Diniz · Assistive technology & product design',
+  description:
+    'Computer engineering student at Northwestern who designs and builds assistive devices, from patented lab instruments to robots.',
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
+    <html lang="en" className={atkinson.variable}>
+      <body>
+        <a
+          href="#main"
+          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[60] focus:rounded-md focus:bg-violet focus:px-4 focus:py-2 focus:font-bold focus:text-paper"
+        >
+          Skip to content
+        </a>
         <Navigation />
-        {children}
+        <div id="main">{children}</div>
       </body>
     </html>
   );

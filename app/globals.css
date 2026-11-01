@@ -1,54 +1,149 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/* The site uses one light theme everywhere, so `dark:` classes only apply
+   if a parent has class="dark" (which nothing does). */
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  /* Colors: dark, purple-tinted, photo-first */
+  --color-paper: #110e18; /* page background */
+  --color-card: #1a1524; /* bands and panels */
+  --color-raise: #251e33; /* raised panels, table headers */
+  --color-ink: #f3effa; /* headings and strong text */
+  --color-body: #c4bcd3; /* paragraph text */
+  --color-muted: #8e86a3; /* captions, small print */
+  --color-line: #2e2742; /* borders and dividers */
+  --color-violet: #a88bff; /* accent: braille dots, buttons, links */
+  --color-lilac: #d6c8ff; /* small labels */
+
+  /* Type: Atkinson Hyperlegible Next, designed by the Braille Institute */
+  --font-sans: var(--font-atkinson), ui-sans-serif, system-ui, sans-serif;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+/* Base styles live in the base layer so Tailwind classes can override them. */
+@layer base {
+  html {
+    color-scheme: dark;
+    scroll-behavior: smooth;
+    scroll-padding-top: 5rem; /* keeps headings clear of the fixed nav */
+  }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  body {
+    background: var(--color-paper);
+    color: var(--color-body);
+    font-family: var(--font-sans);
+    font-size: 1.0625rem;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    color: var(--color-ink);
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  ::selection {
+    background: var(--color-violet);
+    color: var(--color-paper);
+  }
+
+  /* Clear keyboard focus everywhere */
+  :focus-visible {
+    outline: 3px solid var(--color-violet);
+    outline-offset: 3px;
+    border-radius: 4px;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* ---------------------------------------------------------------------------
+   Hero backdrop: giant braille dots, tilted back and softly lit
+   --------------------------------------------------------------------------- */
+.braille-backdrop {
+  /* fade out toward the right and bottom so text stays the focus */
+  mask-image: radial-gradient(85% 70% at 22% 18%, #000 25%, transparent 78%);
+  -webkit-mask-image: radial-gradient(85% 70% at 22% 18%, #000 25%, transparent 78%);
 }
 
-html {
-  scroll-behavior: smooth;
+.braille-plane {
+  --dot: clamp(18px, 3.8vw, 58px);
+  --gap: calc(var(--dot) * 0.55);
+  position: absolute;
+  left: -4%;
+  top: 6%;
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--dot) * 1.6);
+  transform: perspective(1100px) rotateX(24deg) rotateZ(-7deg);
+  transform-origin: 30% 40%;
 }
 
-/* Custom scrollbar */
-::-webkit-scrollbar {
-  width: 10px;
+.braille-line {
+  display: flex;
+  gap: calc(var(--dot) * 1.4);
 }
 
-::-webkit-scrollbar-track {
-  background: #f1f1f1;
+.braille-cell {
+  display: grid;
+  grid-template-columns: repeat(2, var(--dot));
+  gap: var(--gap);
 }
 
-::-webkit-scrollbar-thumb {
-  background: linear-gradient(to bottom, #2563eb, #9333ea);
-  border-radius: 5px;
+.bd {
+  display: block;
+  width: var(--dot);
+  height: var(--dot);
+  border-radius: 9999px;
 }
 
-::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(to bottom, #1d4ed8, #7e22ce);
+.bd-off {
+  background: rgb(255 255 255 / 0.018);
 }
 
-@media (prefers-color-scheme: dark) {
-  ::-webkit-scrollbar-track {
-    background: #1f2937;
+/* Raised dots: lit from the top-left, with a soft violet glow */
+.bd-on {
+  background: radial-gradient(circle at 30% 28%, rgb(214 200 255 / 0.32), rgb(168 139 255 / 0.13) 55%, rgb(168 139 255 / 0.04) 100%);
+  box-shadow:
+    0 0 calc(var(--dot) * 1.2) rgb(168 139 255 / 0.1),
+    inset -2px -3px 8px rgb(0 0 0 / 0.4);
+  animation: dot-surface 1600ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes dot-surface {
+  from {
+    opacity: 0;
+    transform: scale(0.4);
+    filter: blur(6px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+    filter: blur(0);
+  }
+}
+
+/* Soft light behind the hero, like a stage light on the dots */
+.hero-light {
+  background:
+    radial-gradient(60% 70% at 18% 30%, rgb(124 92 255 / 0.16), transparent 70%),
+    radial-gradient(40% 50% at 85% 10%, rgb(168 139 255 / 0.07), transparent 70%);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-delay: 0ms !important;
+    transition-duration: 0.01ms !important;
   }
 }

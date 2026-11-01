@@ -40,44 +40,44 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
   ].filter(Boolean) as { label: string; value: string }[];
 
   return (
-    <main className="min-h-screen bg-white dark:bg-gray-950">
+    <main className="min-h-screen">
       <article className="mx-auto max-w-4xl px-4 pb-24 pt-28 sm:px-6 lg:px-8">
         <Link
           href="/#portfolio"
-          className="mb-10 inline-flex items-center gap-2 text-sm font-medium text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
+          className="mb-10 inline-flex items-center gap-2 text-[0.95rem] font-bold text-ink underline decoration-violet decoration-[3px] underline-offset-[6px] hover:decoration-ink"
         >
           <ArrowLeft size={16} /> All projects
         </Link>
 
         {/* Header */}
-        <p className="mb-3 text-sm font-semibold uppercase tracking-wider text-blue-600 dark:text-blue-400">
+        <p className="mb-3 font-bold text-lilac">
           {project.category}
         </p>
-        <h1 className="mb-5 text-4xl font-bold leading-tight text-gray-900 dark:text-white md:text-5xl">
+        <h1 className="mb-5 text-4xl font-extrabold leading-[1.05] tracking-tight md:text-6xl">
           {project.title}
         </h1>
-        <p className="mb-10 text-xl leading-relaxed text-gray-600 dark:text-gray-300">{project.summary}</p>
+        <p className="mb-10 text-xl leading-relaxed">{project.summary}</p>
 
         {/* Quick facts */}
-        <dl className="mb-10 grid grid-cols-2 gap-6 border-y border-gray-200 py-6 dark:border-gray-800 md:grid-cols-4">
+        <dl className="mb-10 grid grid-cols-2 gap-6 border-y border-line py-6 md:grid-cols-4">
           {facts.map((f) => (
             <div key={f.label}>
-              <dt className="mb-1 text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400">
+              <dt className="mb-1 text-sm font-bold text-lilac">
                 {f.label}
               </dt>
-              <dd className="text-sm font-medium text-gray-900 dark:text-gray-100">{f.value}</dd>
+              <dd className="font-medium text-ink">{f.value}</dd>
             </div>
           ))}
         </dl>
 
         {/* Hero image */}
-        <div className="mb-12 aspect-[16/9] overflow-hidden rounded-2xl border border-gray-200 bg-white dark:border-gray-800">
+        <div className="mb-12 aspect-[16/9] overflow-hidden rounded-2xl border border-line bg-card">
           {project.image ? (
             // eslint-disable-next-line @next/next/no-img-element
             <img src={project.image} alt={project.title} className="h-full w-full object-contain" />
           ) : (
-            <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-blue-600 to-purple-600">
-              <Icon size={80} strokeWidth={1.25} className="text-white/90" />
+            <div className="flex h-full w-full items-center justify-center bg-card">
+              <Icon size={80} strokeWidth={1.25} className="text-violet" />
             </div>
           )}
         </div>
@@ -88,10 +88,10 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
             {cs.metrics.map((m) => (
               <div
                 key={m.label}
-                className="rounded-xl border border-gray-200 bg-gray-50 p-5 dark:border-gray-800 dark:bg-gray-900"
+                className="rounded-2xl border border-line bg-card p-5"
               >
-                <p className="mb-1 text-2xl font-bold text-gray-900 dark:text-white">{m.value}</p>
-                <p className="text-sm text-gray-600 dark:text-gray-400">{m.label}</p>
+                <p className="mb-1 text-2xl font-extrabold text-violet">{m.value}</p>
+                <p className="text-sm leading-snug">{m.label}</p>
               </div>
             ))}
           </div>
@@ -99,20 +99,20 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
 
         {/* Problem */}
         <section className="mb-12">
-          <h2 className="mb-4 text-2xl font-bold text-gray-900 dark:text-white">The problem</h2>
-          <p className="text-lg leading-relaxed text-gray-700 dark:text-gray-300">{cs.problem}</p>
+          <h2 className="mb-4 text-2xl font-extrabold tracking-tight">The problem</h2>
+          <p className="text-lg leading-relaxed">{cs.problem}</p>
         </section>
 
         {/* Body sections */}
         {cs.sections.map((s) => (
           <section key={s.heading} className="mb-12">
-            <h2 className="mb-4 text-2xl font-bold text-gray-900 dark:text-white">{s.heading}</h2>
-            {s.body && <p className="mb-4 text-lg leading-relaxed text-gray-700 dark:text-gray-300">{s.body}</p>}
+            <h2 className="mb-4 text-2xl font-extrabold tracking-tight">{s.heading}</h2>
+            {s.body && <p className="mb-4 text-lg leading-relaxed">{s.body}</p>}
             {s.bullets && s.bullets.length > 0 && (
               <ul className="space-y-3">
                 {s.bullets.map((b) => (
-                  <li key={b} className="flex gap-3 text-lg text-gray-700 dark:text-gray-300">
-                    <span className="mt-3 h-1.5 w-1.5 flex-none rounded-full bg-blue-600" />
+                  <li key={b} className="flex gap-3 text-lg">
+                    <span className="mt-3 size-1.5 flex-none rounded-full bg-violet" />
                     <span>{b}</span>
                   </li>
                 ))}
@@ -120,20 +120,20 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
             )}
             {s.table && (
               <div className="mt-6">
-                <div className="overflow-x-auto rounded-xl border border-gray-200 dark:border-gray-800">
+                <div className="overflow-x-auto rounded-xl border border-line bg-card">
                   <table className="w-full text-left text-sm">
-                    <thead className="bg-gray-50 dark:bg-gray-900">
+                    <thead className="bg-raise">
                       <tr>
                         {s.table.headers.map((h) => (
-                          <th key={h} className="px-4 py-3 font-semibold text-gray-900 dark:text-white">{h}</th>
+                          <th key={h} className="px-4 py-3 font-bold text-ink">{h}</th>
                         ))}
                       </tr>
                     </thead>
-                    <tbody className="divide-y divide-gray-200 dark:divide-gray-800">
+                    <tbody className="divide-y divide-line">
                       {s.table.rows.map((row) => (
                         <tr key={row.join('|')}>
                           {row.map((cell, i) => (
-                            <td key={i} className={`px-4 py-3 ${i === 0 ? 'font-medium text-gray-900 dark:text-gray-100' : 'tabular-nums text-gray-700 dark:text-gray-300'}`}>
+                            <td key={i} className={`px-4 py-3 ${i === 0 ? 'font-medium text-ink' : 'tabular-nums'}`}>
                               {cell}
                             </td>
                           ))}
@@ -142,18 +142,18 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
                     </tbody>
                   </table>
                 </div>
-                {s.table.note && <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">{s.table.note}</p>}
+                {s.table.note && <p className="mt-2 text-sm text-muted">{s.table.note}</p>}
               </div>
             )}
             {s.figures && s.figures.length > 0 && (
               <div className={`mt-8 ${s.sideBySide ? 'grid gap-6 sm:grid-cols-2' : 'space-y-8'}`}>
                 {s.figures.map((f) => (
                   <figure key={f.src}>
-                    <div className="overflow-hidden rounded-xl border border-gray-200 bg-white p-3 dark:border-gray-800">
+                    <div className="overflow-hidden rounded-xl border border-line bg-card p-3">
                       {/* eslint-disable-next-line @next/next/no-img-element */}
                       <img src={f.src} alt={f.caption} className="w-full" />
                     </div>
-                    <figcaption className="mt-2 text-sm text-gray-500 dark:text-gray-400">{f.caption}</figcaption>
+                    <figcaption className="mt-2 text-sm text-muted">{f.caption}</figcaption>
                   </figure>
                 ))}
               </div>
@@ -164,13 +164,13 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
         {/* Gallery */}
         {cs.gallery && cs.gallery.length > 0 && (
           <section className="mb-12">
-            <h2 className="mb-6 text-2xl font-bold text-gray-900 dark:text-white">Gallery</h2>
+            <h2 className="mb-6 text-2xl font-extrabold tracking-tight">Gallery</h2>
             <div className="grid gap-6 sm:grid-cols-2">
               {cs.gallery.map((g) => (
                 <figure key={g.src}>
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img src={g.src} alt={g.caption} className="mb-2 w-full rounded-xl object-cover" />
-                  <figcaption className="text-sm text-gray-500 dark:text-gray-400">{g.caption}</figcaption>
+                  <figcaption className="text-sm text-muted">{g.caption}</figcaption>
                 </figure>
               ))}
             </div>
@@ -179,12 +179,12 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
 
         {/* Tools */}
         <section className="mb-12">
-          <h2 className="mb-4 text-2xl font-bold text-gray-900 dark:text-white">Tools & skills</h2>
+          <h2 className="mb-4 text-2xl font-extrabold tracking-tight">Tools and skills</h2>
           <div className="flex flex-wrap gap-2">
             {project.tags.map((tag) => (
               <span
                 key={tag}
-                className="rounded-md bg-gray-100 px-3 py-1.5 text-sm font-medium text-gray-700 dark:bg-gray-800 dark:text-gray-300"
+                className="rounded-md border border-line bg-card px-3 py-1.5 text-sm font-medium text-ink"
               >
                 {tag}
               </span>
@@ -205,15 +205,13 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
         {next && next.slug !== project.slug && (
           <Link
             href={`/projects/${next.slug}`}
-            className="group flex items-center justify-between rounded-2xl border border-gray-200 p-6 transition-colors hover:border-gray-400 dark:border-gray-800 dark:hover:border-gray-600"
+            className="group flex items-center justify-between rounded-2xl border border-line bg-card p-6 transition-colors hover:border-violet"
           >
             <div>
-              <p className="mb-1 text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400">
-                Next project
-              </p>
-              <p className="text-lg font-bold text-gray-900 dark:text-white">{next.title}</p>
+              <p className="mb-1 text-sm font-bold text-lilac">Next project</p>
+              <p className="text-xl font-extrabold text-ink">{next.title}</p>
             </div>
-            <ArrowRight className="text-gray-400 transition-transform group-hover:translate-x-1 dark:text-gray-500" />
+            <ArrowRight className="text-violet transition-transform group-hover:translate-x-1" />
           </Link>
         )}
       </article>

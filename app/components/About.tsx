@@ -1,188 +1,123 @@
-'use client';
+// About section: story, what I focus on, skills, and recognition.
+// Edit the text and lists below directly.
 
-import { motion } from 'framer-motion';
-import { Code2, Cpu, Wrench, Rocket, Brain, Zap } from 'lucide-react';
-import Image from 'next/image'
-
-const skills = [
+const focusAreas = [
   {
-    category: 'Programming Languages',
-    items: ['Python', 'C++', 'C', 'JavaScript', 'MATLAB', 'Java'],
-    icon: Code2,
+    title: 'Assistive technology',
+    text: 'Devices that give people back independence: a pH meter that speaks for blind chemistry students, a communicator for people with ALS, and an oxygen-tank helper for families of children on oxygen therapy.',
   },
   {
-    category: 'Robotics & Embedded',
-    items: ['ROS/ROS2', 'Arduino', 'Raspberry Pi', 'STM32', 'PID Control', 'SLAM'],
-    icon: Cpu,
+    title: 'Product design',
+    text: 'I start with the people who will use the thing. Interviews, observation, sketches, and mockups come before CAD, and testing with users shapes every version after.',
   },
   {
-    category: 'AI/ML & Computer Vision',
-    items: ['TensorFlow', 'PyTorch', 'OpenCV', 'YOLO', 'Scikit-learn', 'Keras'],
-    icon: Brain,
-  },
-  {
-    category: 'Tools & Technologies',
-    items: ['Git', 'Linux', 'Docker', 'CAD (SolidWorks)', 'PCB Design', 'MQTT'],
-    icon: Wrench,
+    title: 'Hardware and mechatronics',
+    text: 'Mechanisms, circuits, and firmware working together, from custom PCBs and motor control to a research instrument and combat robots.',
   },
 ];
 
-const interests = [
+const skills = [
   {
-    title: 'Autonomous Systems',
-    description: 'Developing intelligent robots that can navigate and make decisions independently',
-    icon: Rocket,
+    group: 'Design and prototyping',
+    items: [
+      'User research and interviews',
+      'Sketching and mockups',
+      'Onshape',
+      'SolidWorks',
+      'Fusion 360',
+      'SketchUp',
+      '3D printing',
+      'Machining',
+      'Design for manufacturing',
+    ],
   },
   {
-    title: 'Machine Learning',
-    description: 'Applying AI algorithms to solve real-world robotics challenges',
-    icon: Brain,
+    group: 'Electronics',
+    items: [
+      'PCB design (Eagle)',
+      'Analog signal conditioning',
+      'Motor drivers and ESCs',
+      'I²C, SPI, UART',
+      'Soldering and rework',
+      'Oscilloscope debugging',
+    ],
   },
   {
-    title: 'Embedded Systems',
-    description: 'Building efficient hardware-software solutions for resource-constrained devices',
-    icon: Zap,
+    group: 'Programming',
+    items: ['Embedded C/C++', 'Arduino', 'Raspberry Pi Pico', 'Python', 'MATLAB and Simulink', 'ROS 2', 'Git', 'Linux'],
   },
+  {
+    group: 'Languages',
+    items: ['Portuguese (native)', 'English (fluent)', 'Spanish (basic)', 'Hebrew (basic)'],
+  },
+];
+
+const recognition = [
+  { year: '2023', text: 'Brazilian utility model patent published for the accessible pH meter (INPI)' },
+  { year: '2023', text: 'SARA academic workflow platform registered as software with INPI' },
+  { year: '2025', text: 'Big Band-Aid Award, Midwest Robot Rumble, with Serrinha' },
+  { year: '2026', text: 'Grant-funded undergraduate research at the Robotic Matter Lab, Northwestern' },
 ];
 
 export default function About() {
   return (
-    <section id="about" className="min-h-screen py-20 bg-gradient-to-br from-blue-50 via-white to-purple-50 dark:from-gray-900 dark:via-gray-900 dark:to-blue-950">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-          className="text-center mb-16"
-        >
-          <h2 className="text-4xl md:text-5xl font-bold mb-4 text-gray-900 dark:text-white">
-            About <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">Me</span>
-          </h2>
-          <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
-            I&apos;m a Computer Engineering major with a passion for robotics and automation.
-            Currently seeking internship opportunities to apply my skills in real-world projects.
-          </p>
-        </motion.div>
+    <section id="about" className="border-t border-line bg-card py-20 md:py-28">
+      <div className="mx-auto max-w-6xl px-5 sm:px-8">
+        <div className="grid gap-12 md:grid-cols-[1fr_1.25fr]">
+          <h2 className="text-4xl font-extrabold tracking-tight md:text-5xl">About me</h2>
+          <div className="max-w-2xl space-y-5 text-lg leading-relaxed">
+            <p>
+              I grew up in Catolé do Rocha, a small town in the sertão of Paraíba, Brazil. In high school at the
+              Federal Institute of Paraíba, I helped build a pH meter that reads its results out loud so blind students
+              could work in the chemistry lab. That project became a patent, and it set the direction for everything
+              since: I want to design hardware that helps people do things on their own.
+            </p>
+            <p>
+              Now I study computer engineering at Northwestern University and am completing the Segal Design
+              Certificate. I like working across the whole product: talking to users, sketching, CAD, electronics,
+              firmware, and testing on the bench.
+            </p>
+            <p>
+              I&apos;m looking for internships in assistive technology, product design, and hardware engineering.
+            </p>
+          </div>
+        </div>
 
-        {/* About Content */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.2 }}
-          className="bg-white dark:bg-gray-800 rounded-2xl p-8 md:p-12 shadow-xl mb-16"
-        >
-          <div className="grid md:grid-cols-2 gap-10 items-center">
-            {/* Left Column — Text */}
-            <div className="prose prose-lg dark:prose-invert max-w-none">
-              <p className="text-gray-700 dark:text-gray-300 text-lg leading-relaxed mb-6">
-                As a Computer Engineering student, I combine my knowledge of hardware and software to create
-                innovative robotics solutions. My experience spans from low-level embedded programming to
-                high-level AI algorithms, enabling me to tackle complex engineering challenges from multiple angles.
-              </p>
-              <p className="text-gray-700 dark:text-gray-300 text-lg leading-relaxed">
-                I&apos;m particularly interested in autonomous systems, computer vision, and the intersection of
-                robotics with artificial intelligence. I&apos;m eager to contribute to cutting-edge projects and
-                learn from experienced professionals in the field.
-              </p>
+        <div className="mt-20 grid gap-10 border-t border-line pt-12 md:grid-cols-3">
+          {focusAreas.map((area) => (
+            <div key={area.title}>
+              <span className="mb-4 block h-1 w-10 rounded-full bg-violet" aria-hidden="true" />
+              <h3 className="mb-3 text-xl font-extrabold tracking-tight">{area.title}</h3>
+              <p className="leading-relaxed">{area.text}</p>
             </div>
+          ))}
+        </div>
 
-            {/* Right Column — Photo */}
-            <div className="flex justify-center md:justify-end">
-            <Image
-              src="/profile.jpeg"
-              width={600}
-              height={200}
-              alt="Leticia Diniz"
-            />
-            </div>
+        <div className="mt-20 grid gap-12 md:grid-cols-[1fr_1.25fr]">
+          <div>
+            <h3 className="mb-6 text-2xl font-extrabold tracking-tight">Skills</h3>
+            <dl className="space-y-6">
+              {skills.map((s) => (
+                <div key={s.group}>
+                  <dt className="mb-2 font-bold text-ink">{s.group}</dt>
+                  <dd className="leading-relaxed">{s.items.join(', ')}</dd>
+                </div>
+              ))}
+            </dl>
           </div>
-        </motion.div>
 
-        {/* Skills Section */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.3 }}
-          className="mb-16"
-        >
-          <h3 className="text-3xl font-bold text-center mb-12 text-gray-900 dark:text-white">
-            Technical Skills
-          </h3>
-          <div className="grid md:grid-cols-2 gap-6">
-            {skills.map((skillGroup, index) => {
-              const Icon = skillGroup.icon;
-              return (
-                <motion.div
-                  key={skillGroup.category}
-                  initial={{ opacity: 0, x: index % 2 === 0 ? -20 : 20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
-                  className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300"
-                >
-                  <div className="flex items-center mb-4">
-                    <div className="p-2 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg mr-3">
-                      <Icon size={24} className="text-white" />
-                    </div>
-                    <h4 className="text-xl font-bold text-gray-900 dark:text-white">
-                      {skillGroup.category}
-                    </h4>
-                  </div>
-                  <div className="flex flex-wrap gap-2">
-                    {skillGroup.items.map((skill) => (
-                      <span
-                        key={skill}
-                        className="px-3 py-1 bg-gradient-to-r from-blue-100 to-purple-100 dark:from-blue-900/30 dark:to-purple-900/30 text-gray-700 dark:text-gray-300 rounded-full text-sm font-medium"
-                      >
-                        {skill}
-                      </span>
-                    ))}
-                  </div>
-                </motion.div>
-              );
-            })}
+          <div>
+            <h3 className="mb-6 text-2xl font-extrabold tracking-tight">Recognition</h3>
+            <ul className="divide-y divide-line border-y border-line">
+              {recognition.map((r) => (
+                <li key={r.text} className="flex gap-6 py-4">
+                  <span className="w-12 flex-none font-bold tabular-nums text-lilac">{r.year}</span>
+                  <span>{r.text}</span>
+                </li>
+              ))}
+            </ul>
           </div>
-        </motion.div>
-
-        {/* Interests Section */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.4 }}
-        >
-          <h3 className="text-3xl font-bold text-center mb-12 text-gray-900 dark:text-white">
-            Areas of Interest
-          </h3>
-          <div className="grid md:grid-cols-3 gap-8">
-            {interests.map((interest, index) => {
-              const Icon = interest.icon;
-              return (
-                <motion.div
-                  key={interest.title}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
-                  className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 text-center"
-                >
-                  <div className="inline-flex p-4 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full mb-4">
-                    <Icon size={32} className="text-white" />
-                  </div>
-                  <h4 className="text-xl font-bold mb-3 text-gray-900 dark:text-white">
-                    {interest.title}
-                  </h4>
-                  <p className="text-gray-600 dark:text-gray-300">
-                    {interest.description}
-                  </p>
-                </motion.div>
-              );
-            })}
-          </div>
-        </motion.div>
+        </div>
       </div>
     </section>
   );

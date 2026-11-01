@@ -4,12 +4,10 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { Menu, X } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { RESUME_URL } from '../data/site';
 
-// Defined outside the component so it isn't recreated on every render.
 const navItems = [
-  { id: 'home', label: 'Home' },
-  { id: 'portfolio', label: 'Portfolio' },
+  { id: 'portfolio', label: 'Work' },
   { id: 'about', label: 'About' },
   { id: 'contact', label: 'Contact' },
 ];
@@ -20,9 +18,9 @@ export default function Navigation() {
   const isHome = pathname === '/';
 
   const [isOpen, setIsOpen] = useState(false);
-  const [activeSection, setActiveSection] = useState('home');
+  const [activeSection, setActiveSection] = useState('');
 
-  // On a project page (/projects/...), highlight "Portfolio".
+  // On a project page, highlight "Work".
   useEffect(() => {
     if (pathname.startsWith('/projects')) setActiveSection('portfolio');
   }, [pathname]);
@@ -30,27 +28,20 @@ export default function Navigation() {
   // On the home page, highlight whichever section is on screen.
   useEffect(() => {
     if (!isHome) return;
-
     const handleScroll = () => {
-      const scrollPosition = window.scrollY + 100;
+      const y = window.scrollY + 120;
+      let current = '';
       for (const { id } of navItems) {
-        const element = document.getElementById(id);
-        if (element) {
-          const { offsetTop, offsetHeight } = element;
-          if (scrollPosition >= offsetTop && scrollPosition < offsetTop + offsetHeight) {
-            setActiveSection(id);
-            break;
-          }
-        }
+        const el = document.getElementById(id);
+        if (el && y >= el.offsetTop) current = id;
       }
+      setActiveSection(current);
     };
-
     handleScroll();
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, [isHome]);
 
-  // On the home page: smooth-scroll. On any other page: go home, then jump to the section.
   const goToSection = (id: string) => {
     setIsOpen(false);
     if (isHome) {
@@ -61,91 +52,79 @@ export default function Navigation() {
   };
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-white/80 dark:bg-gray-900/80 backdrop-blur-md border-b border-gray-200 dark:border-gray-800">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16">
-          <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }}>
-            <Link
-              href="/"
-              onClick={(e) => {
-                if (isHome) {
-                  e.preventDefault();
-                  goToSection('home');
-                }
-              }}
-              className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent"
-            >
-              Leticia Diniz
-            </Link>
-          </motion.div>
+    <nav className="fixed inset-x-0 top-0 z-50 border-b border-line bg-paper">
+      <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-5 sm:px-8">
+        <Link
+          href="/"
+          onClick={(e) => {
+            if (isHome) {
+              e.preventDefault();
+              setIsOpen(false);
+              window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+          }}
+          className="text-lg font-extrabold tracking-tight text-ink"
+        >
+          Leticia Diniz
+        </Link>
 
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex space-x-8">
-            {navItems.map((item, index) => (
-              <motion.button
-                key={item.id}
-                initial={{ opacity: 0, y: -10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.1 }}
-                onClick={() => goToSection(item.id)}
-                className={`relative px-3 py-2 text-sm font-medium transition-colors ${
-                  activeSection === item.id
-                    ? 'text-blue-600 dark:text-blue-400'
-                    : 'text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400'
-                }`}
-              >
-                {item.label}
-                {activeSection === item.id && (
-                  <motion.div
-                    layoutId="activeSection"
-                    className="absolute bottom-0 left-0 right-0 h-0.5 bg-blue-600 dark:bg-blue-400"
-                    transition={{ type: 'spring', stiffness: 380, damping: 30 }}
-                  />
-                )}
-              </motion.button>
-            ))}
-          </div>
-
-          {/* Mobile Menu Button */}
-          <div className="md:hidden">
+        <div className="hidden items-center gap-1 md:flex">
+          {navItems.map((item) => (
             <button
-              onClick={() => setIsOpen(!isOpen)}
-              aria-label={isOpen ? 'Close menu' : 'Open menu'}
-              className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400"
+              key={item.id}
+              type="button"
+              onClick={() => goToSection(item.id)}
+              aria-current={activeSection === item.id ? 'true' : undefined}
+              className={`rounded-full px-4 py-2 text-[0.95rem] font-bold transition-colors ${
+                activeSection === item.id ? 'bg-ink text-paper' : 'text-ink hover:bg-ink/10'
+              }`}
             >
-              {isOpen ? <X size={24} /> : <Menu size={24} />}
+              {item.label}
             </button>
-          </div>
+          ))}
+          <a
+            href={RESUME_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="ml-2 rounded-full border-2 border-ink px-4 py-[6px] text-[0.95rem] font-bold text-ink transition-colors hover:bg-ink hover:text-paper"
+          >
+            Resume
+          </a>
         </div>
+
+        <button
+          type="button"
+          onClick={() => setIsOpen(!isOpen)}
+          aria-label={isOpen ? 'Close menu' : 'Open menu'}
+          aria-expanded={isOpen}
+          className="rounded-md p-2 text-ink md:hidden"
+        >
+          {isOpen ? <X size={24} /> : <Menu size={24} />}
+        </button>
       </div>
 
-      {/* Mobile Navigation */}
-      <AnimatePresence>
-        {isOpen && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
-            exit={{ opacity: 0, height: 0 }}
-            className="md:hidden bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800"
+      {isOpen && (
+        <div className="border-t border-line bg-paper px-5 py-3 md:hidden">
+          {navItems.map((item) => (
+            <button
+              key={item.id}
+              type="button"
+              onClick={() => goToSection(item.id)}
+              className="block w-full rounded-lg px-3 py-3 text-left text-lg font-bold text-ink hover:bg-ink/10"
+            >
+              {item.label}
+            </button>
+          ))}
+          <a
+            href={RESUME_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="block rounded-lg px-3 py-3 text-lg font-bold text-ink hover:bg-ink/10"
           >
-            <div className="px-4 py-3 space-y-3">
-              {navItems.map((item) => (
-                <button
-                  key={item.id}
-                  onClick={() => goToSection(item.id)}
-                  className={`block w-full text-left px-3 py-2 rounded-md text-base font-medium transition-colors ${
-                    activeSection === item.id
-                      ? 'bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400'
-                      : 'text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800'
-                  }`}
-                >
-                  {item.label}
-                </button>
-              ))}
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+            Resume
+          </a>
+        </div>
+      )}
     </nav>
   );
 }

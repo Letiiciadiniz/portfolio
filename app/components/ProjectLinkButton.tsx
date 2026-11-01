@@ -18,13 +18,13 @@ export function ProjectLinkButton({ link }: { link: ProjectLink }) {
       href={link.href}
       target="_blank"
       rel="noopener noreferrer"
-      className={`inline-flex items-center gap-2 rounded-lg px-4 py-2.5 text-sm font-semibold transition-colors ${
+      className={`inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-[0.95rem] font-bold transition-colors ${
         primary
-          ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white hover:opacity-90'
-          : 'bg-gray-900 text-white hover:bg-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700'
+          ? 'bg-violet text-paper hover:bg-lilac'
+          : 'border-2 border-line text-ink hover:border-ink'
       }`}
     >
-      <Icon size={16} />
+      <Icon size={17} aria-hidden="true" />
       {link.label}
     </a>
   );

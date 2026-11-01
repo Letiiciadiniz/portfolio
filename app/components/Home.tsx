@@ -1,116 +1,71 @@
-'use client';
-
-import { motion } from 'framer-motion';
-import { ChevronDown, Github, Linkedin, Mail } from 'lucide-react';
+import Image from 'next/image';
+import BrailleBackdrop from './BrailleBackdrop';
+import { EMAIL, RESUME_URL } from '../data/site';
 
 export default function Home() {
-  const scrollToPortfolio = () => {
-    const element = document.getElementById('portfolio');
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
-
   return (
-    <section id="home" className="min-h-screen flex items-center justify-center relative bg-gradient-to-br from-blue-50 via-white to-purple-50 dark:from-gray-900 dark:via-gray-900 dark:to-blue-950">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-        <div className="text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-          >
-            <h1 className="text-5xl md:text-7xl font-bold mb-6">
-              <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                Leticia Diniz
-              </span>
-              <br />
-              <span className="text-gray-900 md:text-5xl dark:text-white">Computer Engineering & Robotics</span>
-            </h1>
-          </motion.div>
+    <section id="home" className="hero-light relative overflow-hidden border-b border-line">
+      <BrailleBackdrop lines={['Leticia', 'Diniz']} />
 
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            className="text-xl md:text-2xl text-gray-600 dark:text-gray-300 mb-8 max-w-3xl mx-auto"
-          >
-            Computer Engineering major passionate about robotics, automation, and building intelligent systems
-          </motion.p>
+      <div className="relative mx-auto grid max-w-6xl items-center gap-12 px-5 pb-16 pt-28 sm:px-8 md:grid-cols-[1.1fr_0.9fr] md:gap-16 md:pb-24 md:pt-36">
+        <div>
+          <h1 className="text-[clamp(3.25rem,10vw,7rem)] font-extrabold leading-[0.92] tracking-[-0.035em]">
+            Leticia
+            <br />
+            Diniz
+          </h1>
 
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.4 }}
-            className="flex flex-wrap justify-center gap-4 mb-12"
-          >
+          <p className="mt-10 max-w-xl text-2xl font-medium leading-snug text-ink sm:text-[1.75rem]">
+            I design and build assistive devices: hardware that helps people do more on their own.
+          </p>
+          <p className="mt-5 max-w-xl text-lg leading-relaxed">
+            Computer engineering student at Northwestern University, with the Segal Design Certificate. I grew up in
+            Catolé do Rocha, in the sertão of northeastern Brazil.
+          </p>
+
+          <div className="mt-10 flex flex-wrap items-center gap-3">
             <a
               href="#portfolio"
-              onClick={(e) => {
-                e.preventDefault();
-                scrollToPortfolio();
-              }}
-              className="px-8 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-full font-medium hover:shadow-lg hover:scale-105 transition-all duration-300"
+              className="rounded-full bg-violet px-6 py-3 font-bold text-paper transition-colors hover:bg-lilac"
             >
-              View My Work
+              See my work
             </a>
             <a
-              href="#contact"
-              className="px-8 py-3 bg-white dark:bg-gray-800 text-gray-900 dark:text-white rounded-full font-medium border-2 border-gray-200 dark:border-gray-700 hover:border-blue-600 dark:hover:border-blue-400 hover:shadow-lg hover:scale-105 transition-all duration-300"
-            >
-              Get In Touch
-            </a>
-            <a
-              href="https://drive.google.com/file/d/19KtfoDyftE7EgXyyAYhELZOH2tn_7MJ3/view?usp=sharing"
-              className="px-8 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-full font-medium hover:shadow-lg hover:scale-105 transition-all duration-300"
+              href={RESUME_URL}
               target="_blank"
               rel="noopener noreferrer"
+              className="rounded-full border-2 border-line px-6 py-[10px] font-bold text-ink transition-colors hover:border-ink"
             >
               Resume
             </a>
-          </motion.div>
+            <a href={`mailto:${EMAIL}`} className="px-3 py-3 font-bold text-ink underline-offset-4 hover:underline">
+              Email me
+            </a>
+          </div>
 
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.5, delay: 0.6 }}
-            className="flex justify-center gap-6"
-          >
-            <a
-              href="https://github.com/Letiiciadiniz"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
-            >
-              <Github size={28} />
-            </a>
-            <a
-              href="https://www.linkedin.com/in/letiicia-dnz/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
-            >
-              <Linkedin size={28} />
-            </a>
-            <a
-              href="mailto:leticiadiniz2028@u.northwestern.edu"
-              className="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
-            >
-              <Mail size={28} />
-            </a>
-          </motion.div>
+          <p className="mt-12 text-sm text-muted">The dots behind this page spell my name in braille.</p>
         </div>
+
+        <figure className="mx-auto w-full max-w-sm md:max-w-none">
+          <Image
+            src="/profile.jpeg"
+            alt="Leticia Diniz"
+            width={1536}
+            height={2046}
+            priority
+            sizes="(min-width: 768px) 40vw, 90vw"
+            className="aspect-[4/5] w-full rounded-2xl object-cover object-top"
+          />
+        </figure>
       </div>
 
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 1, delay: 1, repeat: Infinity, repeatType: 'reverse' }}
-        className="absolute bottom-8 left-1/2 transform -translate-x-1/2 cursor-pointer"
-        onClick={scrollToPortfolio}
-      >
-        <ChevronDown size={32} className="text-gray-400" />
-      </motion.div>
+      <div className="relative border-t border-line bg-paper/60 backdrop-blur-sm">
+        <p className="mx-auto max-w-6xl px-5 py-5 text-[0.95rem] sm:px-8">
+          <span className="mr-2 inline-block size-2 rounded-full bg-violet align-middle" aria-hidden="true" />
+          Now: building a blade-coating platform for artificial muscles at the Robotic Matter Lab, and leading the
+          electronics team for a 30 lb combat robot.
+        </p>
+      </div>
     </section>
   );
 }

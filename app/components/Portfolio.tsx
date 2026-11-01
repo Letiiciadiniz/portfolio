@@ -3,14 +3,14 @@
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowRight, X } from 'lucide-react';
+import { X } from 'lucide-react';
 import { CATEGORIES, projects, type Project } from '../data/projects';
 import { ProjectLinkButton } from './ProjectLinkButton';
 
 // Fixed order from projects.ts; categories with no projects yet are hidden.
 const categories = ['All', ...CATEGORIES.filter((c) => projects.some((p) => p.category === c))];
 
-/** Photo if there is one, otherwise a clean gradient with the project icon. */
+/** Photo if there is one, otherwise a quiet panel with the project icon. */
 function CardMedia({ project }: { project: Project }) {
   const Icon = project.icon;
   if (project.image) {
@@ -18,67 +18,60 @@ function CardMedia({ project }: { project: Project }) {
       // eslint-disable-next-line @next/next/no-img-element
       <img
         src={project.image}
-        alt={project.title}
-        className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+        alt=""
+        className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
       />
     );
   }
   return (
-    <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-blue-600 to-purple-600">
-      <Icon size={56} strokeWidth={1.5} className="text-white/90" />
+    <div className="flex h-full w-full items-center justify-center bg-card">
+      <Icon size={56} strokeWidth={1.3} className="text-violet" aria-hidden="true" />
     </div>
   );
 }
 
-function ProjectCard({ project, onOpen }: { project: Project; onOpen: () => void }) {
+function ProjectCard({
+  project,
+  featured,
+  onOpen,
+}: {
+  project: Project;
+  featured: boolean;
+  onOpen: () => void;
+}) {
   const hasPage = Boolean(project.caseStudy);
-  const shownTags = project.tags.slice(0, 4);
-  const extra = project.tags.length - shownTags.length;
 
   const inner = (
     <>
-      <div className="relative aspect-[16/10] overflow-hidden bg-gray-100 dark:bg-gray-800">
+      <div
+        className={`relative overflow-hidden rounded-2xl bg-card ${
+          // Photo tiles are tall; projects without a photo get a slim banner instead.
+          !project.image ? 'aspect-[16/6]' : featured ? 'aspect-[4/3] md:aspect-[2/1]' : 'aspect-[4/3]'
+        }`}
+      >
         <CardMedia project={project} />
-        {hasPage && (
-          <span className="absolute left-4 top-4 rounded-full bg-white/90 px-3 py-1 text-xs font-semibold text-gray-900 shadow-sm backdrop-blur dark:bg-gray-900/80 dark:text-white">
-            Case study
-          </span>
-        )}
       </div>
-
-      <div className="flex flex-1 flex-col p-6">
-        <p className="mb-2 text-xs font-semibold uppercase tracking-wider text-blue-600 dark:text-blue-400">
-          {project.category} <span className="text-gray-400 dark:text-gray-500">· {project.date}</span>
-        </p>
-        <h3 className="mb-2 text-xl font-bold leading-snug text-gray-900 dark:text-white">{project.title}</h3>
-        <p className="mb-5 text-gray-600 dark:text-gray-300">{project.summary}</p>
-
-        <div className="mb-6 flex flex-wrap gap-2">
-          {shownTags.map((tag) => (
-            <span
-              key={tag}
-              className="rounded-md bg-gray-100 px-2.5 py-1 text-xs font-medium text-gray-700 dark:bg-gray-800 dark:text-gray-300"
-            >
-              {tag}
-            </span>
-          ))}
-          {extra > 0 && (
-            <span className="rounded-md px-2.5 py-1 text-xs font-medium text-gray-500 dark:text-gray-400">
-              +{extra} more
-            </span>
-          )}
+      <div className={`pt-5 ${featured ? 'md:grid md:grid-cols-[1fr_1fr] md:gap-10' : ''}`}>
+        <div>
+          <p className="mb-1.5 text-sm font-bold text-lilac">
+            {project.category}, {project.date}
+          </p>
+          <h3
+            className={`font-extrabold leading-snug tracking-tight decoration-violet decoration-2 underline-offset-[6px] group-hover:underline ${
+              featured ? 'text-2xl md:text-3xl' : 'text-xl'
+            }`}
+          >
+            {project.title}
+          </h3>
         </div>
-
-        <span className="mt-auto inline-flex items-center gap-1.5 text-sm font-semibold text-gray-900 dark:text-white">
-          {hasPage ? 'Read case study' : 'View details'}
-          <ArrowRight size={16} className="transition-transform group-hover:translate-x-1" />
-        </span>
+        <p className={`mt-2 leading-relaxed ${featured ? 'md:mt-6' : 'line-clamp-2 text-[0.98rem]'}`}>
+          {project.summary}
+        </p>
       </div>
     </>
   );
 
-  const cardClass =
-    'group flex h-full flex-col overflow-hidden rounded-2xl border border-gray-200 bg-white text-left shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl dark:border-gray-800 dark:bg-gray-900';
+  const cardClass = 'group block w-full text-left';
 
   return hasPage ? (
     <Link href={`/projects/${project.slug}`} className={cardClass}>
@@ -110,53 +103,49 @@ export default function Portfolio() {
   }, [selected]);
 
   return (
-    <section id="portfolio" className="min-h-screen bg-gray-50 py-24 dark:bg-gray-950">
-      <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-          className="mb-12 text-center"
-        >
-          <h2 className="mb-4 text-4xl font-bold text-gray-900 dark:text-white md:text-5xl">
-            Selected{' '}
-            <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">Work</span>
-          </h2>
-          <p className="mx-auto max-w-2xl text-lg text-gray-600 dark:text-gray-300">
-            Mechatronics, robotics, and assistive technology, from patented devices to research instruments.
-          </p>
-        </motion.div>
+    <section id="portfolio" className="py-20 md:py-28">
+      <div className="mx-auto max-w-6xl px-5 sm:px-8">
+        <div className="mb-10 flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
+          <div className="max-w-xl">
+            <h2 className="text-4xl font-extrabold tracking-tight md:text-5xl">Selected work</h2>
+            <p className="mt-4 text-lg leading-relaxed">
+              Devices, instruments, and robots I&apos;ve designed, from first interviews and sketches to CAD,
+              electronics, and testing.
+            </p>
+          </div>
 
-        <div className="mb-10 flex flex-wrap justify-center gap-2">
-          {categories.map((category) => (
-            <button
-              key={category}
-              type="button"
-              onClick={() => setFilter(category)}
-              className={`rounded-full px-5 py-2 text-sm font-medium transition-colors ${
-                filter === category
-                  ? 'bg-gray-900 text-white dark:bg-white dark:text-gray-900'
-                  : 'bg-white text-gray-700 ring-1 ring-gray-200 hover:bg-gray-100 dark:bg-gray-900 dark:text-gray-300 dark:ring-gray-800 dark:hover:bg-gray-800'
-              }`}
-            >
-              {category}
-            </button>
-          ))}
+          <div className="flex flex-wrap gap-2" role="group" aria-label="Filter projects">
+            {categories.map((category) => (
+              <button
+                key={category}
+                type="button"
+                onClick={() => setFilter(category)}
+                aria-pressed={filter === category}
+                className={`rounded-full px-4 py-2 text-sm font-bold transition-colors ${
+                  filter === category
+                    ? 'bg-ink text-paper'
+                    : 'border border-line text-ink hover:border-ink'
+                }`}
+              >
+                {category}
+              </button>
+            ))}
+          </div>
         </div>
 
-        <motion.div layout className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+        <motion.div layout className="grid gap-x-8 gap-y-14 sm:grid-cols-2">
           <AnimatePresence mode="popLayout">
-            {filtered.map((project) => (
+            {filtered.map((project, i) => (
               <motion.div
                 key={project.slug}
                 layout
-                initial={{ opacity: 0, scale: 0.96 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.96 }}
-                transition={{ duration: 0.25 }}
+                className={i === 0 ? 'sm:col-span-2' : ''}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.2 }}
               >
-                <ProjectCard project={project} onOpen={() => setSelected(project)} />
+                <ProjectCard project={project} featured={i === 0} onOpen={() => setSelected(project)} />
               </motion.div>
             ))}
           </AnimatePresence>
@@ -170,17 +159,17 @@ export default function Portfolio() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4 backdrop-blur-sm"
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-4 backdrop-blur-sm"
             onClick={() => setSelected(null)}
           >
             <motion.div
               role="dialog"
               aria-modal="true"
               aria-label={selected.title}
-              initial={{ scale: 0.95, opacity: 0, y: 10 }}
-              animate={{ scale: 1, opacity: 1, y: 0 }}
-              exit={{ scale: 0.95, opacity: 0, y: 10 }}
-              className="max-h-[90vh] w-full max-w-2xl overflow-y-auto rounded-2xl bg-white shadow-2xl dark:bg-gray-900"
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 12 }}
+              className="max-h-[90vh] w-full max-w-2xl overflow-y-auto rounded-2xl border border-line bg-card"
               onClick={(e) => e.stopPropagation()}
             >
               <div className="relative aspect-[16/8] overflow-hidden">
@@ -189,28 +178,26 @@ export default function Portfolio() {
                   type="button"
                   onClick={() => setSelected(null)}
                   aria-label="Close"
-                  className="absolute right-4 top-4 rounded-full bg-white/90 p-2 text-gray-700 shadow hover:bg-white dark:bg-gray-900/80 dark:text-gray-200"
+                  className="absolute right-4 top-4 rounded-full bg-paper/90 p-2 text-ink"
                 >
                   <X size={18} />
                 </button>
               </div>
 
               <div className="p-8">
-                <p className="mb-2 text-xs font-semibold uppercase tracking-wider text-blue-600 dark:text-blue-400">
-                  {selected.category} · {selected.date}
+                <p className="mb-2 text-sm font-bold text-lilac">
+                  {selected.category}, {selected.date}
                 </p>
-                <h3 className="mb-3 text-2xl font-bold text-gray-900 dark:text-white">{selected.title}</h3>
-                <p className="mb-6 text-gray-600 dark:text-gray-300">{selected.summary}</p>
+                <h3 className="mb-3 text-2xl font-extrabold tracking-tight">{selected.title}</h3>
+                <p className="mb-6 leading-relaxed">{selected.summary}</p>
 
                 {selected.highlights.length > 0 && (
                   <>
-                    <h4 className="mb-3 text-sm font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400">
-                      Highlights
-                    </h4>
+                    <h4 className="mb-3 font-extrabold">Highlights</h4>
                     <ul className="mb-6 space-y-2">
                       {selected.highlights.map((h) => (
-                        <li key={h} className="flex gap-3 text-gray-700 dark:text-gray-300">
-                          <span className="mt-2 h-1.5 w-1.5 flex-none rounded-full bg-blue-600" />
+                        <li key={h} className="flex gap-3">
+                          <span className="mt-2.5 size-1.5 flex-none rounded-full bg-violet" aria-hidden="true" />
                           <span>{h}</span>
                         </li>
                       ))}
@@ -218,15 +205,10 @@ export default function Portfolio() {
                   </>
                 )}
 
-                <h4 className="mb-3 text-sm font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400">
-                  Built with
-                </h4>
+                <h4 className="mb-3 font-extrabold">Built with</h4>
                 <div className="mb-6 flex flex-wrap gap-2">
                   {selected.tags.map((tag) => (
-                    <span
-                      key={tag}
-                      className="rounded-md bg-gray-100 px-2.5 py-1 text-xs font-medium text-gray-700 dark:bg-gray-800 dark:text-gray-300"
-                    >
+                    <span key={tag} className="rounded-md bg-raise px-2.5 py-1 text-sm text-ink">
                       {tag}
                     </span>
                   ))}

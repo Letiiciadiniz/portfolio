@@ -254,7 +254,7 @@ const allProjects: Project[] = [
   },
   {
     slug: 'clancy',
-    title: 'Clancy: Scratch-Built 3 lb Horizontal Spinner',
+    title: 'Clancy: Scratch-Built 3\u00a0lb Horizontal Spinner',
     summary:
       'A combat robot I designed from a blank page in Onshape: aluminum-plate chassis, two-wheel drive, and a belt-driven steel weapon with about 100 MPH tip speed.',
     category: 'Robotics',
@@ -440,7 +440,7 @@ const allProjects: Project[] = [
   // ========================= POP-UP PROJECTS =========================
   {
     slug: 'combat-30lb',
-    title: '30 lb Combat Robot: Electrical Lead',
+    title: '30\u00a0lb Combat Robot: Electrical Lead',
     summary:
       'Leading a team of 8 electrical engineering students to design the complete electronics and drive control system for the club’s 30 lb robot.',
     category: 'Robotics',
