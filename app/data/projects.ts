@@ -1,5 +1,5 @@
 import type { LucideIcon } from 'lucide-react';
-import { Cpu, Gauge, Layers, MessageSquare, Swords, Volume2, Workflow } from 'lucide-react';
+import { CircuitBoard, Cog, Cpu, Gauge, Layers, MessageSquare, Swords, Volume2, Workflow } from 'lucide-react';
 
 // ---------------------------------------------------------------------------
 // ALL PROJECT CONTENT LIVES HERE.
@@ -253,50 +253,95 @@ export const projects: Project[] = [
     },
   },
   {
-    slug: 'combat-robotics',
-    title: 'Combat Robotics: 3 lb & 30 lb Robots',
+    slug: 'clancy',
+    title: 'Clancy: Scratch-Built 3 lb Horizontal Spinner',
     summary:
-      'Co-leading Northwestern’s combat robotics team: designing spinning weapons, impact-rated mounts, and drive electronics for competition robots.',
+      'A combat robot I designed from a blank page in Onshape: aluminum-plate chassis, two-wheel drive, and a belt-driven steel weapon with about 100 MPH tip speed.',
     category: 'Robotics',
-    date: '2025 – Present',
+    date: '2025 – 2026',
     icon: Swords,
-    // image: '/combat-robot.jpg',   // ← add a photo of the robot
-    tags: ['CAD', 'Drivetrain Design', 'Weapon Systems', 'Motor Drivers & ESCs', 'Power Distribution', 'RC Control', '3D Printing', 'Machining'],
+    image: '/clancy.jpg',
+    tags: ['Onshape CAD', 'Mechanism Design', 'Belt Drive', 'Weapon Design', 'Drivetrain', '3D Printing', 'Machining', 'Combat Robotics'],
     highlights: [],
+    links: [
+      { label: 'Explore the CAD in Onshape', href: 'https://cad.onshape.com/documents/6b6ad9bc997673d01ca4a4b0/w/185b0e42ff930e6006393ca5/e/52909f58346d6af70aea2a75?renderMode=0&uiState=6ae6a478a539d40372a04be8', kind: 'link' },
+    ],
     caseStudy: {
-      role: 'Combat Robotics Co-Leader, NU Robotics Club',
-      timeline: 'Jan 2025 – Present',
-      team: '8-person subteam',
-      status: 'Ongoing',
+      role: 'Designer & builder',
+      timeline: 'Sophomore year, 2025 – 2026',
+      team: 'NU Robotics Club · Combat Robotics',
+      status: 'Built',
       metrics: [
-        { value: '~100 MPH', label: 'Weapon tip speed (3 lb robot)' },
-        { value: '3 lb & 30 lb', label: 'Weight classes' },
-        { value: '8', label: 'Subteam members co-led' },
+        { value: '~100 MPH', label: 'Weapon tip speed' },
+        { value: '3 lb', label: 'Beetleweight class' },
+        { value: 'From scratch', label: 'Every part designed in CAD' },
       ],
       problem:
-        'Combat robots must survive repeated high-energy impacts while staying within strict weight limits. Every part, from the weapon to the motor mounts, has to be designed for abuse.',
+        'In combat robotics, every gram counts and every part gets hit. A 3 lb robot has to pack a drivetrain, a weapon that can deliver a destructive hit, and the electronics into a frame that survives repeated impacts. After a year of modifying a kit robot, I wanted to design one entirely myself.',
       sections: [
         {
-          heading: 'Scratch-built 3 lb robot',
-          body: 'I designed the robot end to end in CAD: chassis, drivetrain, and a steel spinning weapon that reaches about 100 MPH at the tip.',
-        },
-        {
-          heading: 'Kit robot weapon upgrade',
-          body: 'I upgraded a 3 lb kit robot with a custom saw weapon. I redesigned the blade geometry and the impact-bearing mounts, then manufactured them with both additive and subtractive processes to improve reliability under repeated hits.',
-        },
-        {
-          heading: '30 lb robot electronics',
+          heading: 'Design',
+          body: 'I modeled the full robot in Onshape before cutting any material, using the assembly to check clearances, weapon reach, and weight.',
           bullets: [
-            'Motor driver and ESC selection',
-            'Power distribution design',
-            'Custom radio-control channel mapping',
+            'Weapon: a horizontal steel bar spinner, driven by a belt and pulleys from a motor inside the chassis, reaching about 100 MPH at the tip',
+            'Chassis: aluminum top and bottom plates sandwiching 3D-printed side walls, which keeps it stiff while saving weight',
+            'Drivetrain: two-wheel drive with 3D-printed wheel hubs',
+          ],
+          figures: [
+            { src: '/clancy-cad.jpg', caption: 'Onshape assembly: the weapon arm, belt pulley, and chassis plates.' },
+          ],
+        },
+        // ← Add more detail here if you can: weapon motor, battery, weapon
+        //   mass, how you calculated tip speed, and any competition results.
+      ],
+    },
+  },
+  {
+    slug: 'serrinha',
+    title: 'Serrinha: Custom Vertical Spinner',
+    summary:
+      'My first combat robot: I took a 3 lb kit and redesigned its weapon and chassis around a saw-blade vertical spinner, then took it to Midwest Robot Rumble 2025.',
+    category: 'Robotics',
+    date: '2024 – 2025',
+    icon: Cog,
+    image: '/serrinha.jpg',
+    tags: ['Onshape CAD', 'Weapon Design', 'Impact-Rated Mounts', '3D Printing', 'Machining', 'Competition'],
+    highlights: [],
+    links: [
+      { label: 'Explore the CAD in Onshape', href: 'https://cad.onshape.com/documents/22ff5445eba60c93013a5110/w/8fb093b63debc0a6fc4a0b2b/e/94ebe28b966fffb3f18bfdbe?renderMode=0&uiState=6ae6a57b40c1f054683f8c1b', kind: 'link' },
+    ],
+    caseStudy: {
+      role: 'Weapon & chassis designer',
+      timeline: 'Freshman year, 2024 – 2025',
+      team: 'NU Robotics Club · Combat Robotics',
+      status: 'Competed · Midwest Robot Rumble 2025',
+      metrics: [
+        { value: '3 lb', label: 'Beetleweight class' },
+        { value: 'Saw blade', label: 'Custom vertical spinner weapon' },
+        { value: 'Award', label: 'Big Band-Aid Award, Midwest Robot Rumble 2025' },
+      ],
+      problem:
+        'My first robot at Northwestern started from a Just Cuz Robotics 3 lb kit. My job was to adapt it into a saw-blade vertical spinner: design a custom weapon, customize the chassis around it, and make the result survive real fights.',
+      sections: [
+        {
+          heading: 'What I changed',
+          bullets: [
+            'Designed a new weapon around a saw blade, redesigning the blade geometry and the arm that carries it',
+            'Redesigned the impact-bearing mounts in CAD to improve reliability under repeated hits',
+            'Customized the chassis, including steel front forks to get under opponents',
+            'Made the parts with both additive (3D printing) and subtractive (machining) processes',
+          ],
+          figures: [
+            { src: '/serrinha-cad.jpg', caption: 'Onshape assembly of the custom weapon and chassis.' },
           ],
         },
         {
-          heading: 'Leadership',
-          body: 'I co-lead an 8-person subteam and manage the budget for robots in both weight classes.',
+          heading: 'Competition',
+          body: 'Serrinha competed at Midwest Robot Rumble on May 31, 2025, and came home with the Big Band-Aid Award, along with plenty of battle damage. The 3D-printed weapon arm and motor mount took the worst of it. Seeing exactly where the robot failed shaped how I designed Clancy the next year.',
+          figures: [
+            { src: '/serrinha-after-competition.jpg', caption: 'After the event: the award, the saw blade, and the parts that did not survive.' },
+          ],
         },
-        // ← add competition results here when you have them
       ],
     },
   },
@@ -393,6 +438,23 @@ export const projects: Project[] = [
   },
 
   // ========================= POP-UP PROJECTS =========================
+  {
+    slug: 'combat-30lb',
+    title: '30 lb Combat Robot: Electrical Lead',
+    summary:
+      'Leading a team of 8 electrical engineering students to design the complete electronics and drive control system for the club’s 30 lb robot.',
+    category: 'Robotics',
+    date: '2026 – Present',
+    icon: CircuitBoard,
+    tags: ['Team Leadership', 'Motor Drivers & ESCs', 'Power Distribution', 'RC Control', 'Wiring & Integration'],
+    highlights: [
+      'Leading 8 electrical engineering students in NU Robotics Club’s combat robotics team',
+      'Selecting motor drivers and ESCs for the drivetrain and weapon',
+      'Designing the power distribution system',
+      'Mapping custom radio-control channels for driving and weapon control',
+      'Third year in combat robotics: from modifying a kit (Serrinha), to designing a robot from scratch (Clancy), to leading a team',
+    ],
+  },
   {
     slug: 'bat-companion',
     title: 'Interactive Bat Companion',
