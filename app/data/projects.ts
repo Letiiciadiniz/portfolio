@@ -64,7 +64,7 @@ export interface Project {
   caseStudy?: CaseStudy;
 }
 
-export const projects: Project[] = [
+const allProjects: Project[] = [
   // ======================= CASE STUDY PAGES =======================
   {
     slug: 'blade-coater',
@@ -482,34 +482,185 @@ export const projects: Project[] = [
   },
   {
     slug: 'als-communicator',
-    title: 'ALS Vocal Communicator',
+    title: 'Vocal Communicator for People with ALS',
     summary:
-      'An Arduino-based device that helps patients with ALS communicate, using sensor-based interaction and real-time signal processing.',
+      'A low-cost, Arduino-based device that speaks recorded phrases at the press of a key, so people with ALS who still have some finger movement can communicate without a computer.',
     category: 'Assistive Tech',
     date: '2021',
     icon: MessageSquare,
-    tags: ['Arduino', 'Sensor Interfacing', 'Real-Time Signal Processing'],
-    highlights: [
-      'Built a vocal communicator to restore speech capability for patients with ALS',
-      'Integrated sensor-based interaction with real-time signal processing',
-      'Presented to 700+ attendees',
-    ],
+    image: '/als-device.jpg',
+    tags: ['Arduino (C/C++)', 'DFPlayer Mini Audio', 'Membrane Keypad', 'LCD', 'Eagle Schematic', '3D-Printed Enclosure', 'Assistive Technology'],
+    highlights: [],
+    caseStudy: {
+      role: 'Co-developer · hardware & firmware',
+      timeline: '2021',
+      team: '3 student researchers, 2 faculty advisors · IFPB',
+      status: 'Working prototype',
+      metrics: [
+        { value: 'R$143', label: 'Total build cost, vs. R$900+ for commercial communicators' },
+        { value: '1 key', label: 'Press per spoken phrase' },
+        { value: 'No computer', label: 'Fully standalone: no PC or extra screen needed' },
+      ],
+      problem:
+        'ALS (amyotrophic lateral sclerosis) gradually takes away voluntary movement, including speech. As it progresses, many patients are left with little more than “yes” or “no.” The communication aids we found were expensive (around R$900–R$1,000), needed a computer to interpret signals, or were slow, such as spelling out each letter with eye blinks.',
+      sections: [
+        {
+          heading: 'The idea',
+          body: 'We designed a standalone device for people in earlier stages of ALS, or with similar conditions, who can still move one finger. Instead of spelling words, the user presses a key and the device speaks a whole phrase out loud through a built-in speaker. No computer or extra screen is involved.',
+          figures: [
+            { src: '/als-concept.jpg', caption: 'Early 3D concept: keypad and display on top, speaker on the side.' },
+          ],
+        },
+        {
+          heading: 'How it works',
+          bullets: [
+            'A 4×4 membrane keypad is read by an Arduino Uno',
+            'Each key maps to a phrase recorded in our own voices and stored on a memory card',
+            'A DFPlayer Mini audio module plays the phrase through a speaker (one we salvaged and reused)',
+            'An LCD shows the selected phrase for people nearby',
+            'We designed the wiring in Eagle before building the circuit',
+          ],
+          figures: [
+            { src: '/als-schematic.jpg', caption: 'Schematic in Eagle: Arduino, DFPlayer Mini, speaker, LCD, and keypad.' },
+          ],
+        },
+        {
+          heading: 'Phrases',
+          body: 'The prototype speaks nine everyday phrases (shown here in English; the device speaks Portuguese):',
+          table: {
+            headers: ['Key', 'Phrase'],
+            rows: [
+              ['1', 'Are you okay?'],
+              ['2', 'I’m fine, and you?'],
+              ['3', 'Yes.'],
+              ['4', 'No.'],
+              ['5', 'I’m hot.'],
+              ['6', 'I’m hungry.'],
+              ['7', 'I’m cold.'],
+              ['8', 'I don’t feel well.'],
+              ['9', 'Help!'],
+            ],
+            note: 'The full design uses two-key combinations (for example A + 1, A + 2) to reach about 36 phrases.',
+          },
+        },
+        {
+          heading: 'Debugging the build',
+          body: 'On a breadboard, loose connections to the audio module distorted the sound. We first moved the circuit to perforated board, but our soldering was still too inexperienced for it to be reliable. In the end, we wired the keypad and audio module directly to the Arduino, which removed the breadboard entirely and gave clean audio and stable connections.',
+          sideBySide: true,
+          figures: [
+            { src: '/als-breadboard.jpg', caption: 'Breadboard version, where loose contacts distorted the audio.' },
+            { src: '/als-final-wiring.jpg', caption: 'Final wiring direct to the Arduino, inside the enclosure.' },
+          ],
+        },
+        {
+          heading: 'Enclosure',
+          body: 'We modeled the enclosure in SketchUp and 3D-printed it in PLA, with openings for the display and speaker.',
+          sideBySide: true,
+          figures: [
+            { src: '/als-enclosure-cad.jpg', caption: 'Enclosure modeled in SketchUp.' },
+            { src: '/als-enclosure-printed.jpg', caption: 'The printed enclosure.' },
+          ],
+        },
+        {
+          heading: 'Results and next steps',
+          bullets: [
+            'Built a working prototype for R$142.80 in parts, compared with R$900+ for commercial communicators that do not speak',
+            'Next steps: add the battery (the prototype ran on an external power supply), implement two-key combinations for about 36 phrases, and replace the wiring with a custom PCB',
+            'Written up as an expanded abstract for the Brazilian Young Scientists Fair (FBJC) and presented to 700+ attendees',
+          ],
+        },
+      ],
+    },
   },
   {
     slug: 'sara',
-    title: 'SARA: Academic Workflow Automation',
+    title: 'SARA: Academic Workflow Platform',
     summary:
-      'A patented automation platform for repetitive academic administrative tasks, making them about 5× faster.',
+      'A web platform that automates repetitive administrative work for a Brazilian federal institute, making those tasks about 5× faster. Registered as software with Brazil’s national IP office.',
     category: 'Miscellaneous',
-    date: '2021',
+    date: '2020 – 2023',
     icon: Workflow,
-    tags: ['Backend Development', 'System Integration', 'Process Automation'],
-    highlights: [
-      'Co-developed and patented at the Federal Institute of Paraíba',
-      'Cut task completion time about 5× (≈80%) through system integration and process redesign',
+    tags: ['PHP', 'CodeIgniter (MVC)', 'MySQL', 'Authentication', 'Role-Based Access Control', 'Bootstrap', 'jQuery / DataTables'],
+    highlights: [],
+    links: [
+      { label: 'View Software Registration (Portuguese)', href: '/files/sara-registration.pdf', kind: 'doc' },
     ],
+    caseStudy: {
+      role: 'Co-author · web developer',
+      timeline: 'Jul 2020 – Apr 2023',
+      team: '3 student developers, 1 faculty advisor · IFPB Campus Catolé do Rocha',
+      status: 'Registered software · BR 51 2023 001074-0',
+      metrics: [
+        { value: '~5×', label: 'Faster task completion (≈80% less time)' },
+        { value: '6', label: 'User roles with separate permissions' },
+        { value: '50 years', label: 'Software registration with INPI, Brazil’s IP office' },
+      ],
+      problem:
+        'At the Federal Institute of Paraíba, routine academic administration involves many offices: faculty, the pedagogical coordination office, and the coordinators of each technical program. Much of that work was done manually, so repetitive tasks took far longer than they needed to.',
+      sections: [
+        {
+          heading: 'What SARA does',
+          body: 'SARA (Sistema Auxiliar de Rotinas Acadêmicas, “Academic Routines Assistant”) brings those workflows into a single web system. Each user logs in and gets the tools and permissions that match their role.',
+        },
+        {
+          heading: 'Architecture',
+          bullets: [
+            'Back end: PHP on the CodeIgniter MVC framework, with controllers, models, and views kept separate',
+            'Database: MySQL, including a SQL view that joins users to their roles for fast permission checks',
+            'Authentication: secure login with hashed passwords, failed-login tracking, and password reset',
+            'Front end: responsive Bootstrap dashboard, with searchable, sortable tables (DataTables) for managing records',
+            'Validation on every form, such as unique usernames, emails, and student/staff ID numbers, and a minimum password length',
+          ],
+        },
+        {
+          heading: 'Role-based access',
+          body: 'The institute’s offices need very different access, so permissions are built around six roles:',
+          table: {
+            headers: ['Role', 'Who it is for'],
+            rows: [
+              ['Admin', 'System administrators'],
+              ['Faculty', 'Teachers'],
+              ['COPED', 'Pedagogical coordination office'],
+              ['COINFO', 'IT technical program coordination'],
+              ['COEDIF', 'Building technology program coordination'],
+              ['CCT', 'Coordination of all technical programs'],
+            ],
+          },
+        },
+        {
+          heading: 'Impact',
+          bullets: [
+            'Cut the time to complete repetitive administrative tasks by about 5× (≈80%) through system integration and process redesign',
+            'Registered with INPI (Brazil’s National Institute of Industrial Property) as a computer program, protected for 50 years, with the institute as the rights holder',
+          ],
+        },
+      ],
+    },
   },
 ];
+
+// ---------------------------------------------------------------------------
+// ORDER ON THE SITE: list slugs in the order you want the cards to appear.
+// Any project not listed here goes at the end.
+// ---------------------------------------------------------------------------
+const ORDER = [
+  'blade-coater',
+  'accessible-ph-meter',
+  'powereg',
+  'clancy',
+  'serrinha',
+  'bat-companion',
+  'als-communicator',
+  'sara',
+  'combat-30lb',
+];
+
+const rank = (slug: string) => {
+  const i = ORDER.indexOf(slug);
+  return i === -1 ? ORDER.length : i;
+};
+
+export const projects: Project[] = [...allProjects].sort((a, b) => rank(a.slug) - rank(b.slug));
 
 export function getProject(slug: string) {
   return projects.find((p) => p.slug === slug);
