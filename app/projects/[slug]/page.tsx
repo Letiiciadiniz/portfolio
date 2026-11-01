@@ -71,10 +71,10 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
         </dl>
 
         {/* Hero image */}
-        <div className="mb-12 aspect-[16/9] overflow-hidden rounded-2xl bg-gray-100 dark:bg-gray-900">
+        <div className="mb-12 aspect-[16/9] overflow-hidden rounded-2xl border border-gray-200 bg-white dark:border-gray-800">
           {project.image ? (
             // eslint-disable-next-line @next/next/no-img-element
-            <img src={project.image} alt={project.title} className="h-full w-full object-cover" />
+            <img src={project.image} alt={project.title} className="h-full w-full object-contain" />
           ) : (
             <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-blue-600 to-purple-600">
               <Icon size={80} strokeWidth={1.25} className="text-white/90" />
@@ -117,6 +117,46 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
                   </li>
                 ))}
               </ul>
+            )}
+            {s.table && (
+              <div className="mt-6">
+                <div className="overflow-x-auto rounded-xl border border-gray-200 dark:border-gray-800">
+                  <table className="w-full text-left text-sm">
+                    <thead className="bg-gray-50 dark:bg-gray-900">
+                      <tr>
+                        {s.table.headers.map((h) => (
+                          <th key={h} className="px-4 py-3 font-semibold text-gray-900 dark:text-white">{h}</th>
+                        ))}
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-gray-200 dark:divide-gray-800">
+                      {s.table.rows.map((row) => (
+                        <tr key={row.join('|')}>
+                          {row.map((cell, i) => (
+                            <td key={i} className={`px-4 py-3 ${i === 0 ? 'font-medium text-gray-900 dark:text-gray-100' : 'tabular-nums text-gray-700 dark:text-gray-300'}`}>
+                              {cell}
+                            </td>
+                          ))}
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+                {s.table.note && <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">{s.table.note}</p>}
+              </div>
+            )}
+            {s.figures && s.figures.length > 0 && (
+              <div className={`mt-8 ${s.sideBySide ? 'grid gap-6 sm:grid-cols-2' : 'space-y-8'}`}>
+                {s.figures.map((f) => (
+                  <figure key={f.src}>
+                    <div className="overflow-hidden rounded-xl border border-gray-200 bg-white p-3 dark:border-gray-800">
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img src={f.src} alt={f.caption} className="w-full" />
+                    </div>
+                    <figcaption className="mt-2 text-sm text-gray-500 dark:text-gray-400">{f.caption}</figcaption>
+                  </figure>
+                ))}
+              </div>
             )}
           </section>
         ))}
